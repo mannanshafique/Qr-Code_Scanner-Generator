@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_code_scanner_geneator_app/generate.dart';
 import 'package:qr_code_scanner_geneator_app/scan.dart';
 
@@ -13,6 +14,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: drawer(),
+
+//Use to transperent drawer
+
+        // Theme(
+        //   data: Theme.of(context).copyWith(
+        //     // Set the transparency here
+        //     canvasColor: Colors
+        //         .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
+        //   ),
+        //   child: drawer(),
+        // ),
+
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text("QR Code Scanner App"),
@@ -68,6 +82,77 @@ class _MyHomePageState extends State<MyHomePage> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
             side: BorderSide(color: Colors.blue, width: 3.0)),
+      ),
+    );
+  }
+
+  Widget drawer() {
+    return Container(
+      // I add container because of change in width
+      width: 230,
+      child: Drawer(
+        child: ListView(
+          padding: const EdgeInsets.all(0.0), // because upside grey not come
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xff2196f3),
+                ),
+                accountName: Text("M.Mannan Shafique"),
+                accountEmail: Text("shafiquemanan@gmail.com"),
+                currentAccountPicture: CircleAvatar(
+                  radius: 55,
+                  backgroundColor: Colors.black,
+                  child: Padding(
+                    padding: EdgeInsets.all(2.7),
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: AssetImage('images/profile_image.jpg'),
+                    ),
+                  ),
+                )),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Scan()));
+              },
+              child: ListTile(
+                leading: CircleAvatar(
+                    radius: 23,
+                    backgroundColor: Colors.black,
+                    child: CircleAvatar(
+                      backgroundColor: Color(0xff2196f3),
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      ),
+                    )),
+                subtitle: Text("Click to Scan"),
+                title: Text("Scan QR"),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Generate()));
+              },
+              child: ListTile(
+                leading: CircleAvatar(
+                    radius: 23,
+                    backgroundColor: Colors.black,
+                    child: CircleAvatar(
+                        backgroundColor: Color(0xff2196f3),
+                        child: FaIcon(
+                          FontAwesomeIcons.qrcode,
+                          size: 30,
+                          color: Colors.white,
+                        ))),
+                subtitle: Text("Click to Generate"),
+                title: Text("Generate QR"),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
