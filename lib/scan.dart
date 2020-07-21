@@ -55,7 +55,7 @@ class _ScanState extends State<Scan> {
     return Scaffold(
         extendBodyBehindAppBar: true, //yani app nahi count ho ga height may
         appBar: AppBar(
-          title: Text("QR Code Scanner App"),
+          title: Text("QR Code Scanner"),
           centerTitle: true,
           elevation: 0,
         ),
