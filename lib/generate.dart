@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_code_scanner_geneator_app/prvider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Generate extends StatefulWidget {
@@ -7,12 +9,12 @@ class Generate extends StatefulWidget {
 }
 
 class _GenerateState extends State<Generate> {
-  String qrData = "www.google.com";
   TextEditingController qrText = TextEditingController();
-  FocusNode myFocusNode;
 
   @override
   Widget build(BuildContext context) {
+    final qrData = Provider.of<ChangeProvider>(context).qrData;
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -89,14 +91,21 @@ class _GenerateState extends State<Generate> {
                   elevation: 5,
                   onPressed: () {
                     if (qrText.text.isEmpty) {
-                      setState(() {
-                        qrData = "flutter.dev";
-                      });
+                      // setState(() {
+                      //   qrData = "flutter.dev";
+                      // });
+
+                      Provider.of<ChangeProvider>(context, listen: false)
+                          .noText();
                     } else {
-                      setState(() {
-                        qrData = qrText.text;
-                        qrText.clear();
-                      });
+                      //     setState(() {
+                      //   qrData = qrText.text;
+                      //   qrText.clear();
+                      // });
+
+                      Provider.of<ChangeProvider>(context, listen: false)
+                          .haveText(qrText.text);
+                      qrText.clear();
                     }
                   },
                   label: Text(
